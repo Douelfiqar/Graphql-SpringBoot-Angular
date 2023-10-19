@@ -1,7 +1,14 @@
 type Query {
     userWallets: [Wallet]
+    userWalletById (id: String) : Wallet
 }
-
+type Mutation {
+    saveWallet(walletDto : WalletDto) : Wallet
+}
+input WalletDto {
+    balance : Float
+    currencyCode : String
+}
 type Wallet{
     id : String,
     balance : Float

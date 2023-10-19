@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dtos.WalletDto;
 import com.example.demo.entities.Currency;
 import com.example.demo.entities.Wallet;
 import com.example.demo.entities.WalletTransaction;
@@ -71,5 +72,17 @@ public class WalletService  {
             });
 
         }
+    }
+
+    public Wallet save(WalletDto walletDto){
+        Currency currency = currencyRepository.findById(walletDto.currencyCode()).orElseThrow();
+
+        Wallet wallet = Wallet.builder()
+                            .userId("user1")
+                            .createdAt(System.currentTimeMillis())
+                            .balance(walletDto.balance())
+                            .currency(currency)
+                            .build();
+        return walletRepository.save(wallet);
     }
 }
